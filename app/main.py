@@ -5,7 +5,7 @@ from tools.retrieval_tools import create_retriever_tool
 from agent.agent import RAGAgent
 
 def start_chat():
-    print("--- SELISE AGENTIC RAG SYSTEM ---")
+    print("--- Mini AGENTIC RAG SYSTEM ---")
     
     raw_docs = load_pdfs_from_folder("./data")
     if not raw_docs:
