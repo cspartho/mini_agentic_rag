@@ -2,16 +2,13 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 
-# Load environment variables from .env
 load_dotenv()
 
-# ---- Constants ----
+
 EMBEDDING_API_VERSION = "2023-05-15"
 DEFAULT_TEMPERATURE = 0
-SAFE_EMBEDDING_CHUNK_SIZE = 1  # safest for Azure debugging
+SAFE_EMBEDDING_CHUNK_SIZE = 1  
 
-
-# ---- Helpers ----
 def _require_env(var_name: str) -> str:
     """Fetch required env var or raise a clear error."""
     value = os.getenv(var_name)
@@ -20,7 +17,6 @@ def _require_env(var_name: str) -> str:
     return value.strip()
 
 
-# ---- Clients ----
 def get_azure_embeddings() -> AzureOpenAIEmbeddings:
     """
     Returns an Azure OpenAI embedding client.
@@ -40,14 +36,13 @@ def get_azure_llm() -> AzureChatOpenAI:
     """
     return AzureChatOpenAI(
         azure_deployment=_require_env("AZURE_OPENAI_CHAT_DEPLOYMENT"),
-        api_version=_require_env("AZURE_OPENAI_API_VERSION_CHAT"),  # e.g. 2025-01-01-preview
+        api_version=_require_env("AZURE_OPENAI_API_VERSION_CHAT"),
         azure_endpoint=_require_env("AZURE_OPENAI_ENDPOINT"),
         api_key=_require_env("AZURE_OPENAI_API_KEY"),
         temperature=DEFAULT_TEMPERATURE,
     )
 
 
-# ---- Optional quick self-test ----
 if __name__ == "__main__":
     llm = get_azure_llm()
     embeddings = get_azure_embeddings()

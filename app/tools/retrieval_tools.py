@@ -4,12 +4,10 @@ def create_retriever_tool(vectorstore):
     @tool
     def search_docs(query: str) -> str:
         """Search the internal knowledge base and return content with sources."""
-        # Retrieve the top 3 documents
         docs = vectorstore.similarity_search(query, k=3)
         
         formatted_results = []
         for i, doc in enumerate(docs):
-            # Extract source from metadata (set during ingestion)
             source = doc.metadata.get("source", "Unknown Source")
             formatted_results.append(f"Source [{source}]: {doc.page_content}")
             
